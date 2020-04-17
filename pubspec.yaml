@@ -22,8 +22,12 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/
+    - assets/images/
 
+  fonts:
+    - family: BoyarskyMon
+      fonts:
+        - asset: assets/fonts/BoyarskyMon.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

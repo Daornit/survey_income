@@ -29,7 +29,7 @@ class _CustomSliderState extends State<CustomSlider> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('images/img1.jpeg')),
+                        image: AssetImage('assets/images/img1.jpeg')),
                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     color: Colors.redAccent,
                   ),
@@ -43,7 +43,7 @@ class _CustomSliderState extends State<CustomSlider> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage('images/img2.jpeg')),
+                        image: AssetImage('assets/images/img2.jpeg')),
                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     color: Colors.redAccent,
                   ),
@@ -54,7 +54,7 @@ class _CustomSliderState extends State<CustomSlider> {
           SizedBox(height: 16),
           Padding(
             padding: const EdgeInsets.only(top: 16, bottom: 8),
-            child: Text("Сүүлийн үеийн судалгаанууд"),
+            child: Text("Сүүлийн үеийн"),
           ),
           Container(
             child: SmoothPageIndicator(

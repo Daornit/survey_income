@@ -10,14 +10,11 @@ class HomeRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Expanded(
-          flex: 3,
-          child: Container(
-            child: CustomSlider(),
-          ),
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          child: CustomSlider(),
         ),
         Expanded(
-          flex: 5,
           child: ListView(
             children: <Widget>[
               Container(

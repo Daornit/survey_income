@@ -11,7 +11,14 @@ class CustomTitleBar extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(20.0),
         decoration: new BoxDecoration(
-          color: Colors.blueAccent.shade700,
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.blueAccent.shade200,
+              Colors.blueAccent.shade700,
+            ],
+          ),
           borderRadius: new BorderRadius.only(
             bottomLeft: const Radius.circular(16.0),
             bottomRight: const Radius.circular(16.0),

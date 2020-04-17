@@ -8,6 +8,60 @@ class CustomLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueAccent.shade700,
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.85,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/drawer-bg.jpg"),
+                          fit: BoxFit.cover)),
+                  child: null,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: ListView(children: [
+                ListTile(
+                  title: Text("Мөнгө шилжүүлэх хүсэлт"),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Оролцсон судалгаанууд"),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Миний судалгаа"),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Нууц үг солих"),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Хувийн мэдээлэл засах"),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ]),
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Container(
           color: Colors.white,
