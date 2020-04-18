@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:surveyincome/components/custom-button.dart';
 import 'package:surveyincome/components/custom-title-bar.dart';
+import 'package:surveyincome/components/survey_question.dart';
 
 class AddSurveyRoute extends StatefulWidget {
   @override
@@ -12,106 +13,66 @@ class AddSurveyRoute extends StatefulWidget {
 class _AddSurveyRouteState extends State<AddSurveyRoute> {
   final _formKey = GlobalKey<FormState>();
 
-  String _selectedType = 'short';
-  List<DropdownMenuItem<String>> genderList = [];
+  List<Widget> surveyList = new List<Widget>();
 
-  List<Widget> list = [];
-
-  void loadGenderList() {
-    genderList = [];
-    genderList.add(new DropdownMenuItem(
-      child: new Text('Текст хариулт'),
-      value: 'short',
-    ));
-    genderList.add(new DropdownMenuItem(
-      child: new Text('Сонголт/selection/'),
-      value: 'selection',
-    ));
-    genderList.add(new DropdownMenuItem(
-      child: new Text('Олон сонголтот/checkbox/'),
-      value: 'checkbox',
-    ));
-    genderList.add(new DropdownMenuItem(
-      child: new Text('Хооронд/Range/'),
-      value: 'range',
-    ));
-    genderList.add(new DropdownMenuItem(
-      child: new Text('Огноо'),
-      value: 'date',
-    ));
-    genderList.add(new DropdownMenuItem(
-      child: new Text('Цаг'),
-      value: 'time',
-    ));
+  void initializeList() {
+    surveyList.add(
+      TextFormField(
+        decoration: const InputDecoration(
+          hintText: 'Судалгааны нэр',
+        ),
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Судагааны нэр заавал өгөгдсөн байх шаардлагатай';
+          }
+          return null;
+        },
+      ),
+    );
+    surveyList.add(
+      TextFormField(
+        decoration: const InputDecoration(
+          hintText: 'Оролцогчийн тоо',
+        ),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Оролцогчдийн тоог заавал бөглөнө үү!';
+          }
+          return null;
+        },
+      ),
+    );
+    surveyList.add(
+      TextFormField(
+        decoration: const InputDecoration(
+          hintText: 'Судалгааны нийт төлбөр/төгрөгөөр/',
+        ),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Оролцогчдийн тоог заавал бөглөнө үү!';
+          }
+          return null;
+        },
+      ),
+    );
   }
 
-  typeChange(String value) {
-    setState(() {
-      _selectedType = value;
-      switch (_selectedType) {
-        case 'short':
-          list.clear();
-          list.add(
-            TextFormField(
-              decoration: const InputDecoration(
-                hintText: 'Текст хариулт хүлээн авна.',
-              ),
-              enabled: false,
-            ),
-          );
-          break;
-        case 'selection':
-          list.clear();
-          list.add(
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: ListTile(
-                    title: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'хариулт...',
-                      ),
-                    ),
-                    leading: Radio(
-                      value: 1,
-                      onChanged: (value) {},
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.close),
-                  iconSize: 20.0,
-                  color: Colors.blueAccent.shade400,
-                ),
-              ],
-            ),
-          );
-          list.add(
-            CustomButton(
-              text: "Хариулт нэмэх",
-              onPressed: () {},
-            ),
-          );
-          break;
-        case 'checkbox':
-          list.clear();
-          break;
-        case 'range':
-          list.clear();
-          break;
-        case 'date':
-          list.clear();
-          break;
-        case 'time':
-          list.clear();
-          break;
-      }
-    });
+  @override
+  void initState() {
+    super.initState();
+    initializeList();
   }
 
   @override
   Widget build(BuildContext context) {
-    loadGenderList();
     return Column(
       children: <Widget>[
         CustomTitleBar(
@@ -123,112 +84,74 @@ class _AddSurveyRouteState extends State<AddSurveyRoute> {
             child: Form(
               key: _formKey,
               child: ListView(
-                children: <Widget>[
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Судалгааны нэр',
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Судагааны нэр заавал өгөгдсөн байх шаардлагатай';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Оролцогчийн тоо',
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter.digitsOnly
-                    ],
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Оролцогчдийн тоог заавал бөглөнө үү!';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Судалгааны нийт төлбөр/төгрөгөөр/',
-                    ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter.digitsOnly
-                    ],
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Оролцогчдийн тоог заавал бөглөнө үү!';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Асуулт ...',
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Блок бүр асуулт талбарийг бөглөсөн байх шаардлагатай!';
-                            }
-                            return null;
-                          },
-                        ),
-                        DropdownButton(
-                          hint: new Text('Блокийн төрлийг сонгоно уу!'),
-                          items: genderList,
-                          value: _selectedType,
-                          onChanged: (value) {
-                            typeChange(value);
-                          },
-                          isExpanded: true,
-                        ),
-                        ...list,
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.yellow.shade50,
-                      borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(16.0),
-                        topRight: const Radius.circular(16.0),
-                        bottomLeft: const Radius.circular(16.0),
-                        bottomRight: const Radius.circular(16.0),
-                      ),
-                    ),
-                  ),
-                ],
+                children: surveyList,
               ),
             ),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Expanded(
-              child: CustomButton(
-                text: "Үүсгэх",
-                onPressed: () {},
-              ),
+        Container(
+          child: Material(
+            elevation: 4.0,
+            borderRadius: BorderRadius.all(Radius.circular(6.0)),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              direction: Axis.horizontal,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    print("submit button clicked");
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                    child: Text(
+                      "Үүсгэх",
+                      style: TextStyle(fontSize: 15, letterSpacing: 5),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 30.0,
+                  width: 1.0,
+                  color: Colors.blueGrey,
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      print('adding SurveyQuestion');
+                      surveyList.add(
+                        Container(
+                          height: 100.0,
+                          margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                          color: Colors.transparent,
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/survey');
+                            },
+                            child: Container(
+                              decoration: new BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: new BorderRadius.only(
+                                    topLeft: const Radius.circular(16.0),
+                                    topRight: const Radius.circular(16.0),
+                                    bottomLeft: const Radius.circular(16.0),
+                                    bottomRight: const Radius.circular(16.0),
+                                  )),
+                              child: null,
+                            ),
+                          ),
+                        ),
+                      );
+                      print(surveyList.length);
+                    });
+                  },
+                  icon: Icon(Icons.add),
+                  color: Colors.blueAccent.shade400,
+                  iconSize: 20,
+                )
+              ],
             ),
-            IconButton(
-              iconSize: 45.0,
-              onPressed: () {},
-              icon: Icon(
-                Icons.add_circle_outline,
-                color: Colors.blueAccent.shade400,
-              ),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-          ],
+          ),
         ),
       ],
     );
