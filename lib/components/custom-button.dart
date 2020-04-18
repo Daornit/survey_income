@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 40.0,
-      margin: EdgeInsets.fromLTRB(50, 0, 50, 10),
+      margin: EdgeInsets.fromLTRB(50, 0, 50, 0),
       color: Colors.transparent,
       child: FlatButton(
         onPressed: onPressed,
